@@ -30,11 +30,11 @@ jobs:
 
       # Build exe
       - name: Build EXE
-        run: uv run pyinstaller --onefile --windowed --name dockertools --paths . dockergui.py
+        run: uv run pyinstaller --onefile --windowed --name dockertools --icon=app.ico --paths . dockergui.py
 
       # Upload exe
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-exe
+          name: dockertools
           path: dist/*.exe

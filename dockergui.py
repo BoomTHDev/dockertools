@@ -68,7 +68,7 @@ class DockerGUI(tk.Tk):
             self.tree.column(c, width=200)
 
         out = run_cmd(
-            "docker ps -a --format '{{.ID}}|{{.Names}}|{{.Status}}|{{.Image}}'"
+            'docker ps -a --format "{{.ID}}|{{.Names}}|{{.Status}}|{{.Image}}"'
         )
         for line in out.splitlines():
             self.tree.insert("", "end", values=line.split("|"))
@@ -82,7 +82,7 @@ class DockerGUI(tk.Tk):
             self.tree.column(c, width=220)
 
         out = run_cmd(
-            "docker images --format '{{.Repository}}|{{.Tag}}|{{.ID}}|{{.Size}}'"
+            'docker images --format "{{.Repository}}|{{.Tag}}|{{.ID}}|{{.Size}}"'
         )
         for line in out.splitlines():
             self.tree.insert("", "end", values=line.split("|"))
@@ -96,8 +96,8 @@ class DockerGUI(tk.Tk):
             self.tree.column(c, width=220)
 
         out = run_cmd(
-            "docker stats --no-stream "
-            "--format '{{.Name}}|{{.CPUPerc}}|{{.MemUsage}}|{{.NetIO}}|{{.BlockIO}}'"
+            'docker stats --no-stream '
+            '--format "{{.Name}}|{{.CPUPerc}}|{{.MemUsage}}|{{.NetIO}}|{{.BlockIO}}"'
         )
         for line in out.splitlines():
             self.tree.insert("", "end", values=line.split("|"))

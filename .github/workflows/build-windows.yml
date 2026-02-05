@@ -1,0 +1,36 @@
+name: Build Windows EXE (UV)
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # ติดตั้ง uv บน runner (ชั่วคราว)
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      # ติดตั้ง Python (ชั่วคราวใน runner)
+      - name: Setup Python
+        run: uv python install 3.14 --default
+
+      # ติดตั้ง PyInstaller (เป็น dev dependency ก็ได้)
+      - name: Install PyInstaller
+        run: uv add pyinstaller
+
+      # Build exe
+      - name: Build EXE
+        run: uv run pyinstaller --onefile --windowed --name dockertools --paths . dockergui.py
+
+      # Upload exe
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe
+          path: dist/*.exe

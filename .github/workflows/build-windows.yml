@@ -20,6 +20,10 @@ jobs:
       - name: Setup Python
         run: uv python install 3.14 --default
 
+      # Sync dependencies จาก pyproject.toml + uv.lock
+      - name: Install dependencies
+        run: uv sync --frozen
+
       # ติดตั้ง PyInstaller (เป็น dev dependency ก็ได้)
       - name: Install PyInstaller
         run: uv add pyinstaller
